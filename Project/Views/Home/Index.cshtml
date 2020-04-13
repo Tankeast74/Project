@@ -1,13 +1,16 @@
-﻿@model IEnumerable<Product>
+﻿@using Project.Views.ViewModels
+@model IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="text-center">
-        @foreach (var el in Model)
-        {
-            <div>@el.Name</div>
-            <div>@el.Price</div>
-            <div style="color:palevioletred">@el.Category</div>
-        }
-    </div>
+<div class="text-center">
+    @foreach(var el in Model.Products)
+    {
+        <div>
+            @el.Name;
+            @el.Price;
+        </div>            
+    }
+</div>
+<div page-model="@Model.PageInfo" page-action="Index"></div>    

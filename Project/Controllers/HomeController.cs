@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Project.Helpers;
 using Project.Models;
 using Project.Services;
+using Project.Views.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Project.Controllers
 {
@@ -19,15 +18,24 @@ namespace Project.Controllers
             _productRepository = productRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var list = _productRepository.Products;
-            return View(list);
+            int pageSize = 3;
+            var source = _productRepository.Products.AsQueryable();
+            var count = await source.CountAsync();
+            var list = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var pageModel = new PageViewModel() { PageNumber = page, PageSize = pageSize, TotalItems = count };
+            IndexViewModel model = new IndexViewModel
+            {
+                Products = list,
+                PageInfo = pageModel
+            };
+            return View(model);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
             return View();
-        }       
+        }
     }
 }
