@@ -25,6 +25,10 @@ namespace Project.Helpers
         public ViewContext ViewContext { get; set; }
         public PageViewModel PageModel { get; set; }
         public string PageAction { get; set; }
+        public bool PageClassEnabled { get; set; } = false;
+        public string PageClass { get; set; }
+        public string PageClassSelected { get; set; }
+        public string PageClassNormal { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             IUrlHelper urlHelper = _urlHelperFactory.GetUrlHelper(ViewContext);
@@ -33,6 +37,11 @@ namespace Project.Helpers
             {
                 TagBuilder tag = new TagBuilder("a");
                 tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
+                if (PageClassEnabled)
+                {
+                    tag.AddCssClass(PageClass);
+                    tag.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                }
                 tag.InnerHtml.Append(i.ToString());
                 result.InnerHtml.AppendHtml(tag);
             }

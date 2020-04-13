@@ -4,13 +4,9 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    @foreach(var el in Model.Products)
-    {
-        <div>
-            @el.Name;
-            @el.Price;
-        </div>            
-    }
-</div>
-<div page-model="@Model.PageInfo" page-action="Index"></div>    
+@foreach (var el in Model.Products)
+{
+    @await Html.PartialAsync("ProductCard",el)
+}
+
+<div page-model="@Model.PageInfo" page-action="Index"></div>

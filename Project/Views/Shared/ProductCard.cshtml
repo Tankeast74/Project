@@ -1,0 +1,17 @@
+﻿
+@model Product
+@{
+    ViewData["Title"] = "View";
+}
+
+<div class="card">
+    <div class="card__img">
+        <img src="@Model.ImgPath" alt="" />
+    </div>
+    <div class="card__header">@Model.Name;</div>
+    <div class="card__description">@Model.Description;</div>
+    <div class="card__price"> @Model.Price;</div>
+    
+    <div class="card__button"></div>
+</div>
+
