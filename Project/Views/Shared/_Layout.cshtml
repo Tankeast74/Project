@@ -3,21 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Project</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>@ViewData["Title"] - Project</title>   
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="navbar__logo"></div>
-            <div class="navbar__link"></div>
-        </nav>
-    </header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar__inner">
+                <a class="navbar__logo" href="#">Доставка</a>
+                <a class="navbar__link" href="#">Войти</a>
+            </div>      
+        </div>
+
+
+    </nav>
     <div class="container">
         <main role="main">
             @RenderBody()
         </main>
-    </div>   
+    </div>
+           
 </body>
 </html>

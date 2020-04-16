@@ -3,10 +3,11 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-@foreach (var el in Model.Products)
-{
-    @await Html.PartialAsync("ProductCard",el)
-}
+<div class="shop__body">
+    @foreach (var el in Model.Products)
+    {
+        @await Html.PartialAsync("ProductCard", el)
+    }
+</div>
 
 <div page-model="@Model.PageInfo" page-action="Index"></div>

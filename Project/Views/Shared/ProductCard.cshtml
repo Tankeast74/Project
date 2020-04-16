@@ -6,12 +6,13 @@
 
 <div class="card">
     <div class="card__img">
-        <img src="@Model.ImgPath" alt="" />
+        <img class="card__img-item" src="@Model.ImgPath" alt="" />
     </div>
-    <div class="card__header">@Model.Name;</div>
-    <div class="card__description">@Model.Description;</div>
-    <div class="card__price"> @Model.Price;</div>
-    
-    <div class="card__button"></div>
+    <div class="card__header">@Model.Name</div>
+    <div class="card__description">@Model.Description</div>
+    <div class="card__accept-block">
+        <div class="card__price"> @Model.Price</div>
+        <a class="card__button" href="#">В корзину</a>
+    </div>
 </div>
 

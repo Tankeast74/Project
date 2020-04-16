@@ -17,10 +17,9 @@ namespace Project.Controllers
         {
             _productRepository = productRepository;
         }
-
         public async Task<IActionResult> Index(int page = 1)
         {
-            int pageSize = 3;
+            int pageSize = 4;
             var source = _productRepository.Products.AsQueryable();
             var count = await source.CountAsync();
             var list = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
@@ -33,9 +32,9 @@ namespace Project.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Privacy()
-        {
-            return View();
-        }
+        //public async Task<IActionResult> Privacy()
+        //{
+        //    return View();
+        //}
     }
 }
