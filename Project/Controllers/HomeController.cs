@@ -17,17 +17,22 @@ namespace Project.Controllers
         {
             _productRepository = productRepository;
         }
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string category, int page = 1)
         {
             int pageSize = 4;
             var source = _productRepository.Products.AsQueryable();
             var count = await source.CountAsync();
-            var list = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-            var pageModel = new PageViewModel() { PageNumber = page, PageSize = pageSize, TotalItems = count };
+            var list = await source.Where(l => l.Category==null || l.Category == category)
+                                   .Skip((page - 1) * pageSize)
+                                   .Take(pageSize)
+                                   .ToListAsync();
+
+            var pageModel = new PageViewModel() { CurrentPage = page, PageSize = pageSize, TotalItems = count };
             IndexViewModel model = new IndexViewModel
             {
                 Products = list,
-                PageInfo = pageModel
+                PageInfo = pageModel,
+                CurrentCategory = category
             };
             return View(model);
         }
