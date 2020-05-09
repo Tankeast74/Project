@@ -22,24 +22,26 @@ namespace Project.Controllers
             int pageSize = 4;
             var source = _productRepository.Products.AsQueryable();
             var count = await source.CountAsync();
-            var list = await source.Where(l => l.Category==null || l.Category == category)
+            var list = await source.Where(l => category == null || l.Category == category)
                                    .Skip((page - 1) * pageSize)
                                    .Take(pageSize)
                                    .ToListAsync();
 
-            var pageModel = new PageViewModel() { CurrentPage = page, PageSize = pageSize, TotalItems = count };
+            var pageModel = new PageViewModel()
+            {
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalItems = category == null ? source.Count() : source.Where(s => s.Category == category).Count() 
+            };
+
             IndexViewModel model = new IndexViewModel
             {
                 Products = list,
                 PageInfo = pageModel,
                 CurrentCategory = category
             };
+
             return View(model);
         }
-
-        //public async Task<IActionResult> Privacy()
-        //{
-        //    return View();
-        //}
     }
 }

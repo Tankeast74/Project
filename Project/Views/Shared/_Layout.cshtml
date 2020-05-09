@@ -11,18 +11,34 @@
     <nav class="navbar">
         <div class="container">
             <div class="navbar__inner">
-                <a class="navbar__logo" href="#">Доставка</a>
+                @Html.ActionLink("Доставка", "Index", "Home", new { category = (string)null, page = 1 }, new { @class = "navbar__logo" })                
                 <a class="navbar__link" href="#">Войти</a>
-            </div>      
+            </div>
         </div>
-
-
     </nav>
+    <div class="slider">
+        <div class="slider__item">
+            <img src="~/img/Slides/01.jpg" alt="" />
+        </div>
+        <div class="slider__item">
+            <img src="~/img/Slides/02.jpg" alt="" />
+        </div>
+        <div class="slider__item">
+            <img src="~/img/Slides/03.jpg" alt="" />
+        </div>
+    </div>
+    <div class="navigation-menu">
+            @await Component.InvokeAsync("NavigationMenu")
+    </div>
     <div class="container">
         <main role="main">
             @RenderBody()
         </main>
     </div>
-     <footer class="footer">Футер</footer>      
+    <footer class="footer">Футер</footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/site.js"></script>
 </body>
 </html>
+

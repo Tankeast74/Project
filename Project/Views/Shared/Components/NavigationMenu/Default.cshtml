@@ -1,0 +1,7 @@
+﻿@model IEnumerable<string>
+
+@foreach(var el in Model)
+{
+    <a class="@(el == ViewBag.SelectedCategory ? "navigation-menu__item_selected" : "navigation-menu__item")" asp-action="Index" asp-controller="Home" asp-route-category=@el asp-route-page=1>@el</a>
+}
+

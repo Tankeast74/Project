@@ -48,9 +48,25 @@ namespace Project
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "pagination",
-                    pattern: "Products/Page{page}",
+                    name: null,
+                    pattern: "{category}/Page{page:int}",
                     defaults: new { Controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                    name: null,
+                    pattern: "Page{page:int}",
+                    defaults: new { Controller = "Home", action = "Index", page = 1 });
+
+                endpoints.MapControllerRoute(
+                    name: null,
+                    pattern: "{category}",
+                    defaults: new { Controller = "Home", action = "Index", page = 1 });
+
+                endpoints.MapControllerRoute(
+                    name: null,               
+                    pattern: "",
+                    defaults: new { Controller = "Home", action = "Index", page = 1 });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

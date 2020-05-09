@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -25,6 +26,10 @@ namespace Project.Helpers
         public ViewContext ViewContext { get; set; }
         public PageViewModel PageModel { get; set; }
         public string PageAction { get; set; }
+
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+
         public bool PageClassEnabled { get; set; } = false;
         public string PageClassSelected { get; set; }
         public string PageClassNormal { get; set; }
@@ -35,8 +40,10 @@ namespace Project.Helpers
             for (int i = 1; i <= PageModel.TotalPages; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
-                tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
-                
+
+                PageUrlValues["page"] = i;
+                tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
+                //tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });               
                 if (PageClassEnabled)                
                     tag.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);                
                 
