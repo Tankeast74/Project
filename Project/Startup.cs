@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Project.Data;
+using Project.Models;
 using Project.Services;
-using System.IO;
 
 namespace Project
 {
@@ -25,6 +25,10 @@ namespace Project
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddScoped(sp => SessionCartService.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMemoryCache();
+            services.AddSession();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -40,7 +44,7 @@ namespace Project
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -63,15 +67,15 @@ namespace Project
                     defaults: new { Controller = "Home", action = "Index", page = 1 });
 
                 endpoints.MapControllerRoute(
-                    name: null,               
+                    name: null,
                     pattern: "",
                     defaults: new { Controller = "Home", action = "Index", page = 1 });
 
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-        });
+            });
             SeedData.EnsurePopulated(app);
-        }        
+        }
     }
 }

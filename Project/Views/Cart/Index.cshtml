@@ -1,0 +1,14 @@
+﻿@model Project.Views.ViewModels.CartIndexViewModel
+
+@foreach (var line in Model.CartLine)
+{
+    <p>@line.Product.Name</p>
+    <p>@line.Product.Price</p>
+    <p>Количество: @line.Quantity</p>
+    <form asp-action="RemoveFromCart" method="post" asp-controller="Cart">
+        <input type="hidden" name="Id" value="@line.Product.Id" />
+        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+        <button type="submit">Убрать</button>
+    </form>
+}
+<a href="@Model.ReturnUrl">Назад</a>

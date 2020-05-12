@@ -2,7 +2,7 @@
     $('.slider').slick({
         arrows: true,
         dots: true,
-        autoplay: false,
+        autoplay: true,
         autoplaySpeed: 4000,
         pauseOnDotsHover: true,
         pauseOnHover: true,

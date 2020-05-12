@@ -12,7 +12,12 @@
     <div class="card__description">@Model.Description</div>
     <div class="card__accept-block">
         <div class="card__price"> @Model.Price</div>
-        <a class="card__button" href="#">В корзину</a>
+        <form id="@Model.Id" asp-action="AddToCart" asp-controller="Cart" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="card__button">В корзину</button>
+        </form>
     </div>
+    
 </div>
 
