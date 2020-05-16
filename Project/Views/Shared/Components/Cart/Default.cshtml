@@ -1,0 +1,13 @@
+﻿@model Project.Services.CartService
+
+    <div id="CartInfo" name="CartInfo" class="cart-vidget">
+        <div class="cart-vidget__items">
+            @if (Model.Lines.Sum(p => p.Quantity) != 0)
+                @Model.ComputeTotalSum().ToString("c")
+        </div>       
+        <div class=@("cart-vidget__link" + (Model.Lines.Sum(p=>p.Quantity) == 0 ? "" : "_selected"))>
+            <a asp-controller="Cart" asp-action="Index" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">
+                <img src="~/img/shopping-cart-solid.svg" alt="" />
+            </a>
+        </div>
+    </div>

@@ -23,12 +23,12 @@ namespace Project.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult AddToCart(int Id, string returnUrl)
+        public IActionResult AddToCart(int Id, string returnUrl)
         {
             var product = _repository.Products.FirstOrDefault(p => p.Id == Id);
             if (product != null)
                 _cartService.AddItem(product, 1);
-            return RedirectToAction("Index", new { returnUrl });
+            return ViewComponent("Cart", new { returnUrl });
         }
 
         [HttpPost]
