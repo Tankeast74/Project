@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Project.Data;
 using Project.Helpers;
 using Project.Models;
 using Project.Services;
@@ -11,16 +12,16 @@ namespace Project.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProductRepository _productRepository;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(IProductRepository productRepository)
+        public HomeController(ApplicationDbContext context)
         {
-            _productRepository = productRepository;
+            _context = context;
         }
         public async Task<ActionResult> Index(string category, int page = 1)
         {
             int pageSize = 4;
-            var source = _productRepository.Products.AsQueryable();
+            var source = _context.Products.AsQueryable();
             var count = await source.CountAsync();
             var list = await source.Where(l => category == null || l.Category == category)
                                    .Skip((page - 1) * pageSize)

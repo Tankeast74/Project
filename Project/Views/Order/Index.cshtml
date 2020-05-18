@@ -1,0 +1,10 @@
+﻿@model Order
+
+<form asp-action="Complete" asp-controller="Order" method="post">
+    <p>Имя:</p>
+    <p><input type="text" name="Name" /></p>
+    <p>Телефон:</p>
+    <p><input type="tel" name="Telephone" /></p>        
+    <input type="submit" value="Оплатить"/>
+</form>
+

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Project.Data;
 using Project.Services;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,15 @@ namespace Project.Components
 {
     public class NavigationMenuViewComponent : ViewComponent
     {
-        private readonly IProductRepository _repository;
-        public NavigationMenuViewComponent(IProductRepository repository)
+        private readonly ApplicationDbContext _context;
+        public NavigationMenuViewComponent(ApplicationDbContext context)
         {
-            _repository = repository;
+            _context = context;
         }
         public IViewComponentResult Invoke()
         {
             ViewBag.SelectedCategory = RouteData?.Values["category"];
-            return View(_repository.Products.Select(p => p.Category).Distinct().OrderBy(o => o));
+            return View(_context.Products.Select(p => p.Category).Distinct().OrderBy(o => o));
         }
     }
 }

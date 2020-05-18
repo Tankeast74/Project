@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Project.Data;
 using Project.Helpers;
 using Project.Models;
 using Project.Services;
@@ -14,18 +15,18 @@ namespace Project.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IProductRepository _repository;
+        private readonly ApplicationDbContext _context;
         private readonly CartService _cartService;
-        public CartController(IProductRepository repository, CartService cartService)
+        public CartController(ApplicationDbContext context, CartService cartService)
         {
             _cartService = cartService;
-            _repository = repository;
+            _context = context;
         }
 
         [HttpPost]
         public IActionResult AddToCart(int Id, string returnUrl)
         {
-            var product = _repository.Products.FirstOrDefault(p => p.Id == Id);
+            var product = _context.Products.FirstOrDefault(p => p.Id == Id);
             if (product != null)
                 _cartService.AddItem(product, 1);
             return ViewComponent("Cart", new { returnUrl });
@@ -34,7 +35,7 @@ namespace Project.Controllers
         [HttpPost]
         public RedirectToActionResult RemoveFromCart(int Id, string returnUrl)
         {
-            var product = _repository.Products.FirstOrDefault(p => p.Id == Id);
+            var product = _context.Products.FirstOrDefault(p => p.Id == Id);
             if (product != null)
                 _cartService.RemoveItem(product);
             return RedirectToAction("Index", new { returnUrl });

@@ -24,9 +24,9 @@ namespace Project
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
-            services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped(sp => SessionCartService.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddMemoryCache();
             services.AddSession();
         }
