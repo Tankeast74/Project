@@ -1,0 +1,21 @@
+﻿@model Product
+@{
+    Layout = "_AdminLayout";
+}
+
+<form asp-action="Create" method="post">
+    <label>Название:</label>
+    <input asp-for="Name" />
+    <label>Описание:</label>
+    <input asp-for="Description" />
+    <label>Категория:</label>
+    <select asp-for="Category">
+        <option value="Бургеры">Бургеры</option>
+        <option value="Пицца">Пицца</option>
+        <option value="Роллы">Роллы</option>
+    </select>    
+    <label>Цена:</label>
+    <input asp-for="Price" />
+    <button type="submit">Сохранить</button>
+    <a asp-action="Index" asp-controller="Admin">Отмена</a>
+</form>

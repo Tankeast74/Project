@@ -10,7 +10,7 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200517205247_Order")]
+    [Migration("20200520151653_Order")]
     partial class Order
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

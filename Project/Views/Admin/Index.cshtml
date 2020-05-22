@@ -1,0 +1,59 @@
+﻿@model List<Product>
+
+@{
+    Layout = "_AdminLayout";
+}
+@if (TempData["message"] != null)
+{
+    <div>@TempData["message"]</div>
+}
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Категория</th>
+        <th>Цена</th>             
+    </tr>
+    @foreach (var product in Model)
+    {
+        <tr>
+            <td>@product.Id</td>
+            <td>@product.Name</td>
+            <td>@product.Description</td>
+            <td>@product.Category</td>
+            <td>@product.Price.ToString("c")</td>
+            <td>
+                <a asp-action="Edit" asp-route-productId="@product.Id">Изменить</a>
+                <a href="#" class="delete-button">Удалить</a>                                              
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    <a asp-action="Create">Создать</a>
+</div>
+
+<div class="delete-dialog">
+    <div class="delete-dialog__content">
+        <div class="delete-dialog__button_close">+</div>
+        <div class="delete-dialog__text"></div>
+        <form asp-action="Delete" method="post">
+            <button class="delete-dialog__button_delete" type="submit">Удалить</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.delete-button').forEach(function (item)
+    {
+        item.addEventListener('click', function (){
+            document.querySelector('.delete-dialog').style.display = 'flex';
+        });
+    });
+                   
+    document.querySelector('.delete-dialog__button_close').addEventListener('click', function () {
+        document.querySelector('.delete-dialog').style.display = 'none';
+    });
+</script>

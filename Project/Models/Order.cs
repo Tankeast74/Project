@@ -14,6 +14,6 @@ namespace Project.Models
         [Required]
         public string Telephone { get; set; }
 
-        public IList<CartLine> Lines { get; set; }
+        public virtual IList<CartLine> Lines { get; set; }
     }
 }

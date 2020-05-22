@@ -35,7 +35,6 @@ namespace Project.Controllers
             }
             order.Lines = _cartService.Lines.ToList();
             await _orderService.SaveOrder(order);
-            _cartService.Clear();
             return View();
         }
     }
