@@ -25,35 +25,42 @@
             <td>@product.Price.ToString("c")</td>
             <td>
                 <a asp-action="Edit" asp-route-productId="@product.Id">Изменить</a>
-                <a href="#" class="delete-button">Удалить</a>                                              
+                <input type="hidden" id="@product.Id" value="@product.Name" />
+                <a href="#" id="@product.Id" class="delete-button">Удалить</a>                  
             </td>
         </tr>
     }
 </table>
-
-<div>
-    <a asp-action="Create">Создать</a>
-</div>
-
 <div class="delete-dialog">
     <div class="delete-dialog__content">
         <div class="delete-dialog__button_close">+</div>
         <div class="delete-dialog__text"></div>
         <form asp-action="Delete" method="post">
+            <input type="hidden" name="ProductId" id="ProductId" />
+            <div id="delete-form-text"></div>
             <button class="delete-dialog__button_delete" type="submit">Удалить</button>
         </form>
     </div>
 </div>
+<div>
+    <a asp-action="Create">Создать</a>
+</div>
+
+
 
 <script>
     document.querySelectorAll('.delete-button').forEach(function (item)
     {
-        item.addEventListener('click', function (){
+        item.addEventListener('click', function () { 
+            let productID = item.getAttribute('id');
+            let productName = document.getElementById(productID).value;
             document.querySelector('.delete-dialog').style.display = 'flex';
+            document.getElementById('ProductId').value = productID;
+            document.getElementById('delete-form-text').innerText = `Вы действительно хотите удалить ${productName}?`;
         });
     });
                    
     document.querySelector('.delete-dialog__button_close').addEventListener('click', function () {
-        document.querySelector('.delete-dialog').style.display = 'none';
+        document.querySelector('.delete-dialog').style.display = 'none';       
     });
 </script>

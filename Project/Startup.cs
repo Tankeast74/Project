@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +24,10 @@ namespace Project
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
+            string identityConnection = Configuration.GetConnectionString("IdentityConnection");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<ApplicationIdentityDbContext>(options => options.UseSqlServer(identityConnection));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationIdentityDbContext>();
             services.AddControllersWithViews();
             services.AddScoped(sp => SessionCartService.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -47,7 +52,9 @@ namespace Project
             app.UseSession();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
@@ -76,6 +83,7 @@ namespace Project
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
             SeedData.EnsurePopulated(app);
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }

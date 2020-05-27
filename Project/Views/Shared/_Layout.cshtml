@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Project</title>   
+    <title>@ViewData["Title"] - Project</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/StyleSheet.css" />
 </head>
@@ -11,11 +11,21 @@
     <nav class="navbar">
         <div class="container">
             <div class="navbar__inner">
-                @Html.ActionLink("Доставка", "Index", "Home", new { category = (string)null, page = 1 }, new { @class = "navbar__logo" })  
+                @Html.ActionLink("Доставка", "Index", "Home", new { category = (string)null, page = 1 }, new { @class = "navbar__logo" })
                 <div class="navbar__items">
                     @await Component.InvokeAsync("Cart")
-                    <a class="navbar__link" href="#">Войти</a>
-                </div>                
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input type="submit" value="Выйти" />
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="navbar__link" asp-action="Login" asp-controller="Account">Войти</a>
+                    }
+
+                </div>
             </div>
         </div>
     </nav>
@@ -31,7 +41,7 @@
         </div>
     </div>
     <div class="navigation-menu">
-            @await Component.InvokeAsync("NavigationMenu")
+        @await Component.InvokeAsync("NavigationMenu")
     </div>
     <div class="container">
         <main role="main">
@@ -42,7 +52,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="~/js/slick.min.js"></script>
     <script src="~/js/site.js"></script>
-    <script src="~/js/jquery.unobtrusive-ajax.min.js"></script>            
+    <script src="~/js/jquery.unobtrusive-ajax.min.js"></script>
 </body>
 </html>
 
