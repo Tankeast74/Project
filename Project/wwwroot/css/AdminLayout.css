@@ -10,10 +10,12 @@
 *:after {
     box-sizing: border-box;
 }
-
 .container {
+    position: absolute;
     width: 100%;
+    height: 100%;
     margin: 0 auto;
+    background-color: #fcfbe6;
 }
 
 /*delete dialog window*/
@@ -37,6 +39,7 @@
     width:500px;
     height:100px;
     background-color:#fff;
+    opacity:1;
     border-radius:4px;
     text-align:center;
 }
@@ -48,7 +51,7 @@
     border-radius: 5px;
     background-color: #3576ef;
     color: #fff;
-    margin: 65px 0 0 0;
+    margin: 20px 0 0 0;
     cursor:pointer;
 }
 
@@ -61,6 +64,34 @@
     cursor:pointer;
 }
 
-.delete-dialog__text{}
+.delete-dialog__text{
+    margin: 25px 0 0 0;
+}
+
+.admin-navbar{
+    background-color:#1b97dc;
+    height:30px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.admin-navbar__item{
+    margin: 5px 10px 0 10px;
+    color:white;
+}
+
+.admin-navbar__button_logout{
+    margin: 0 5px 0 0;
+    text-decoration:none;
+    background-color:white;
+    padding: 2px 5px;
+    border-radius: 10px;
+    color:#000;
+}
+
+.admin-navbar__link_home{
+    color:#FFF;
+    text-decoration:none;
+}
 
 

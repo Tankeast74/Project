@@ -1,4 +1,9 @@
-﻿@model List<Product>
+﻿<!DOCTYPE html>
+<head>
+    <title>@ViewData["Title"] - Project</title>
+    <link rel="stylesheet" href="~/css/AdminIndex.css" />
+</head>
+@model List<Product>
 
 @{
     Layout = "_AdminLayout";
@@ -7,30 +12,36 @@
 {
     <div>@TempData["message"]</div>
 }
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Название</th>
-        <th>Описание</th>
-        <th>Категория</th>
-        <th>Цена</th>             
-    </tr>
-    @foreach (var product in Model)
-    {
+<div class="table-container">
+    <table>
         <tr>
-            <td>@product.Id</td>
-            <td>@product.Name</td>
-            <td>@product.Description</td>
-            <td>@product.Category</td>
-            <td>@product.Price.ToString("c")</td>
-            <td>
-                <a asp-action="Edit" asp-route-productId="@product.Id">Изменить</a>
-                <input type="hidden" id="@product.Id" value="@product.Name" />
-                <a href="#" id="@product.Id" class="delete-button">Удалить</a>                  
-            </td>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Категория</th>
+            <th>Цена</th>
         </tr>
-    }
-</table>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Category</td>
+                <td>@product.Price.ToString("c")</td>
+                <td class="buttons">
+                    <a class="edit-button" asp-action="Edit" asp-route-productId="@product.Id">Изменить</a>
+                    <input type="hidden" id="@product.Id" value="@product.Name" />
+                    <a href="#" id="@product.Id" class="delete-button">Удалить</a>
+                </td>
+            </tr>
+        }
+    </table>
+    
+    <div class="create-button-container">
+        <a class="create-button" asp-action="Create">Создать</a>
+    </div>
+</div>
 <div class="delete-dialog">
     <div class="delete-dialog__content">
         <div class="delete-dialog__button_close">+</div>
@@ -42,16 +53,12 @@
         </form>
     </div>
 </div>
-<div>
-    <a asp-action="Create">Создать</a>
-</div>
 
 
 
 <script>
-    document.querySelectorAll('.delete-button').forEach(function (item)
-    {
-        item.addEventListener('click', function () { 
+    document.querySelectorAll('.delete-button').forEach(function (item) {
+        item.addEventListener('click', function () {
             let productID = item.getAttribute('id');
             let productName = document.getElementById(productID).value;
             document.querySelector('.delete-dialog').style.display = 'flex';
@@ -59,8 +66,8 @@
             document.getElementById('delete-form-text').innerText = `Вы действительно хотите удалить ${productName}?`;
         });
     });
-                   
+
     document.querySelector('.delete-dialog__button_close').addEventListener('click', function () {
-        document.querySelector('.delete-dialog').style.display = 'none';       
+        document.querySelector('.delete-dialog').style.display = 'none';
     });
 </script>

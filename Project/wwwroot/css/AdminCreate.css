@@ -1,0 +1,65 @@
+﻿body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.create-container{
+    height:100%;
+    width:70%;
+    background-color:#fff;   
+    margin:auto;
+    text-align:center;
+    padding:10px;
+}
+
+label{
+    
+}
+
+input{
+    margin:10px;
+    width:80%;
+}
+
+select{
+    margin:10px;
+    width:80%;
+    height:25px;
+}
+
+option{
+    
+}
+
+.save-button {
+    border: none;
+    border-radius: 10px;
+    height: 30px;
+    width: 110px;
+    margin: 10px 0 20px 0;
+    background-color: #58a224;
+    color: white;
+    font-size: 16px;
+    transition: linear 0.5s;
+    cursor: pointer;
+}
+
+.cancel-button {
+    text-decoration: none;
+    background-color: #58a224;
+    color: white;
+    transition: linear 0.5s;
+    padding: 5px 28px 5px 28px;
+    border-radius: 10px;
+}
+
+.cancel-button:hover, .save-button:hover {
+    background-color: #1b97dc;
+    color: #FFF;
+}

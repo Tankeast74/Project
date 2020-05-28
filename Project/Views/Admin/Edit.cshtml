@@ -1,22 +1,30 @@
-﻿@model Product
+﻿<!DOCTYPE html>
+<head>
+    <title>@ViewData["Title"] - Project</title>
+    <link rel="stylesheet" href="~/css/AdminEdit.css" />
+</head>
+@model Product
 @{
     Layout = "_AdminLayout";
 }
 
+<div class="create-container">
     <form asp-action="Edit" method="post">
-        <input type="hidden" asp-for="Id" />
-        <label asp-for="Name">Название:</label>
-        <input asp-for="Name" />
-        <label asp-for="Description">Описание</label>
-        <input asp-for="Description" />
-        <label asp-for="Category">Категория</label>
+        <input type="hidden" asp-for="Id" /><br />
+        <label asp-for="Name">Название:</label><br />
+        <input asp-for="Name" /><br />
+        <label asp-for="Description">Описание</label><br />
+        <input asp-for="Description" /><br />
+        <label asp-for="Category">Категория</label><br />
         <select asp-for="Category">
             <option value="Бургеры">Бургеры</option>
             <option value="Пицца">Пицца</option>
             <option value="Роллы">Роллы</option>
-        </select>
-        <label asp-for="Price">Цена</label>
-        <input asp-for="Price" />
-        <button type="submit">Сохранить</button>
-        <a asp-action="Index" asp-controller="Admin">Отмена</a>
+        </select><br />
+        <label asp-for="Price">Цена</label><br />
+        <input asp-for="Price" /><br />
+        <button class="save-button" type="submit">Сохранить</button><br />
+        <a class="cancel-button" asp-action="Index" asp-controller="Admin">Отмена</a>
     </form>
+</div>
+
